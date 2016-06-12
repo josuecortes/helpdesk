@@ -1,0 +1,15 @@
+<%= simple_form_for(@departamento) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+    <%= f.input :sigla %>
+    <%= f.input :email %>
+    <%= f.input :telefone %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', departamentos_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

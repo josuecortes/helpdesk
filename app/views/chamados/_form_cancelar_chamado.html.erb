@@ -1,0 +1,17 @@
+<%= simple_form_for(@chamado) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <%= f.input :status, as: :hidden, :input_html=>{:value=>"CANCELADO"} %>
+    <%= f.input :data_status_cancelado, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    
+    <%= f.input :motivo_cancelamento, :label=>"Motivo do Cancelamento" %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<% content_for :titulo do %>
+  Problemas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Problema
+<% end %>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @problema.descricao %>
+</p>
+
+<p>
+  <strong>Solucão:</strong>
+  <%= detalhes(@problema.solucao) %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @problema.tipo %>
+</p>
+
+<%= link_to link_icone('voltar'), problemas_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_problema_path(@problema), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('nova'), new_problema_path, :class=> 'btn btn-success', :title=>"Novo Problema" %>

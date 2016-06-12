@@ -1,0 +1,17 @@
+<% content_for :titulo do %>
+  Chamados
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Editar Chamado
+<% end %>
+
+
+<% if @chamado.status == "ABERTO" %>
+
+	<%= render 'form' %>
+
+<% else %>
+	<div class="alert alert-warning" role="alert">Este Chamado não está disponivel para edição neste momento.</div>
+	<%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+<% end %>

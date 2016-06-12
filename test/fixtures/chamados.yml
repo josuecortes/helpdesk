@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  problema_id: 1
+  observacoes_usuario: MyText
+  user_id: 1
+  status: MyString
+  data_status_aberto: 2016-06-09 12:14:19
+  data_status_fechado: 2016-06-09 12:14:19
+  data_status_em_atendimento: 2016-06-09 12:14:19
+  data_status_concluido: 2016-06-09 12:14:19
+  parecer_preliminar_tecnico: MyText
+  parecer_final_tecnico: MyText
+  motivo_cancelamento: MyText
+  avaliacao_usuario: MyText
+  nivel_satisfacao_usuario: 1
+
+two:
+  problema_id: 1
+  observacoes_usuario: MyText
+  user_id: 1
+  status: MyString
+  data_status_aberto: 2016-06-09 12:14:19
+  data_status_fechado: 2016-06-09 12:14:19
+  data_status_em_atendimento: 2016-06-09 12:14:19
+  data_status_concluido: 2016-06-09 12:14:19
+  parecer_preliminar_tecnico: MyText
+  parecer_final_tecnico: MyText
+  motivo_cancelamento: MyText
+  avaliacao_usuario: MyText
+  nivel_satisfacao_usuario: 1

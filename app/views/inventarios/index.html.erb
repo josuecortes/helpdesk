@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Inventarios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Departamento</th>
+      <th>Quantidade</th>
+      <th>Estado</th>
+      <th>Observacoes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @inventarios.each do |inventario| %>
+      <tr>
+        <td><%= inventario.departamento_id %></td>
+        <td><%= inventario.quantidade %></td>
+        <td><%= inventario.estado %></td>
+        <td><%= inventario.observacoes %></td>
+        <td><%= link_to 'Show', inventario %></td>
+        <td><%= link_to 'Edit', edit_inventario_path(inventario) %></td>
+        <td><%= link_to 'Destroy', inventario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Inventario', new_inventario_path %>

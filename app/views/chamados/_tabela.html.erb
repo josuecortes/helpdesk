@@ -1,0 +1,37 @@
+<tr>
+  <td><%= data_br_completa(chamado.created_at) %></td>
+  <td><%= icone_status(chamado.status) %></td>
+  <td><%= chamado.user.name %></td>
+  <td>Localll</td>
+  <td><%= detalhes2(chamado.tecnico, :name) %></td>
+  <td>
+    
+    <%= link_to link_icone('detalhes'),
+              chamado_path(chamado), :class => 'btn btn-default', :title=>"Detalhes" %>
+    
+    <% if chamado.status == "ABERTO" and chamado.user == current_user %>
+      <%= link_to link_icone('editar'),
+              edit_chamado_path(chamado), :class => 'btn btn-primary', :title=>"Editar" %>
+    <% end %>
+
+    <% if chamado.status == "ABERTO" and current_user.e_tecnico %>
+      <%= link_to link_icone('pegar'),
+              chamado_pegar_chamado_path(chamado.id, :usuario_id=>current_user.id), :class => 'btn btn-primary', :title=>"Pegar" %>
+    <% end %>
+
+    <% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico_chamado == current_user %>
+      <%= link_to link_icone('concluir'),
+              chamado_concluir_chamado_path(chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
+    <% end %>
+    
+    <% if (chamado.status == "CONCLUIDO" and chamado.user == current_user) %>
+      <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
+    <% end %>
+    
+    <% if ((chamado.status == "ABERTO" or  chamado.status == "EM ATENDIMENTO") and chamado.user == current_user) %>
+      <%= link_to link_icone('cancelar'), chamado_cancelar_chamado_path(chamado), :class=>"btn btn-danger", :title=>"Cancelar" %> 
+    <% end %>
+
+  </td>
+
+</tr>

@@ -1,0 +1,34 @@
+<% content_for :titulo do %>
+  Usuários
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Novo Usuário
+<% end %>
+
+<%= simple_form_for @usuario, :url=>usuarios_path do |f| %>
+
+	<%= f.input :name, :label=>"Nome" %>
+  
+  <%= f.input :email, :input_html => {:class=>"input-xxlarge", :required=>true} %>
+
+  <%= 
+    #f.association :escola, collection: Escola.order([:nome]), :label=>"Escola", label_method: :nome, value_method: :id, include_blank: true 
+  %>
+
+  <% if can? :manage, Role %>
+    <%= f.input :role_ids, :label=>"Permissões", :collection=>Role.accessible_by(current_ability).order('nome ASC').collect {|d| [d.nome, d.id]}, as: :check_boxes %>
+  <% end %>
+  
+  <p class="text-danger">Atenção: A senha gerada sera: "12345678"</p>
+  <p class="text-info">Apos o primeiro login o usuario sera redirecionado e solicitado a mudar sua senha. <br/>Apos mudar sua senha o usuario tera que efetuar novamente o login.</p>
+
+  <%= f.input :password, :as => :hidden, :input_html => {value: "12345678"} %>
+  <%= f.input :password_confirmation, :as => :hidden, :input_html => {value: "12345678"} %>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Criar Usuário', :class => 'btn btn-primary' %>
+    <%= link_to 'Voltar', usuarios_path, :class=>'btn btn-default' %>
+  </div>
+
+<% end %>

@@ -1,0 +1,16 @@
+<% content_for :titulo do %>
+  Itens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Item
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @item.nome %>
+</p>
+
+<%= link_to link_icone('voltar'), items_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_item_path(@item), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('nova'), new_item_path, :class=> 'btn btn-success', :title=>"Novo item" %>

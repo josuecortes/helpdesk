@@ -1,0 +1,19 @@
+<%= simple_form_for(@chamado) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <%= f.input :status, as: :hidden, :input_html=>{:value=>"FECHADO"} %>
+    <%= f.input :data_status_fechado, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    
+    <%= f.input :avaliacao_usuario, :label=>"Sua Avaliação" %>
+
+    <%= f.input :nivel_satisfacao_usuario, :label=>"Nivel de Satisfação" %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

@@ -1,0 +1,73 @@
+<% content_for :titulo do %>
+  usuarios
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= search_form_for @q, :url=>usuarios_url,  :class=>'navbar-form navbar-right', :role=>'search' do |f| %>
+      
+      <!-- NOVO -->
+      <%= link_to link_icone('novo'), new_usuario_path, :class=> 'btn btn-success', :title=>"Novo Usuario" %>
+      <!-- /NOVO -->
+
+      <%= f.search_field :name_or_email_cont, :class=>'form-control', :placeholder=>'Nome ou E-mail' %>
+      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+    <% end %>
+  </ul>
+  <h4>
+    <strong>
+      Lista de Usuários
+    </strong>
+  </h4>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Ações</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @usuarios.each do |usuario| %>
+      <% if usuario.ativo == false %>
+        <tr class="danger">
+      <% elsif usuario.mudar_senha == true %>
+        <tr class="info">
+      <% else %>
+        <tr>
+      <% end %>
+        <td><%= usuario.name %></td>
+        <td><%= usuario.email %></td>
+        <td>
+          <% if usuario.ativo == true %>
+            <%= link_to link_icone('detalhes'),
+                      usuario_path(usuario), :class => 'btn btn-default', :title=>"Detalhes" %>
+            <%= link_to link_icone('editar'),
+                      edit_usuario_path(usuario), :class => 'btn btn-primary', :title=>"Editar" %>
+            <% if can? :delete, usuario %>
+              <%= link_to link_icone('desativar'), usuario_path(usuario), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Desativar" %> 
+            <% end %>
+            <% if can? :redefinir_senha, usuario %>
+              <%= link_to link_icone('resetar'), usuario_redefinir_senha_path(usuario), :class=>"btn btn-warning", data: { confirm: 'Você está certo disso?' }, :title=>"Redefinir Senha" %>
+            <% end %>
+          <% else %>            
+            <% if can? :delete, usuario %>
+              <%= link_to link_icone('ativar'), usuario_path(usuario), :class=>"btn btn-success", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Ativar" %> 
+            <% end %> 
+          <% end %>
+          
+        </td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<center>
+  <%= will_paginate @usuarios, renderer: BootstrapPagination::Rails %>
+</center>

@@ -1,0 +1,116 @@
+<% content_for :titulo do %>
+  Chamados
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Chamado
+<% end %>
+
+<p>
+  <strong>Status:</strong>
+  <%= icone_status(@chamado.status) %>
+</p>
+
+<p>
+  <strong>Problema ou Requisição:</strong>
+  <%= @chamado.problema.descricao %>
+</p>
+
+<p>
+  <strong>Observações:</strong>
+  <%= detalhes(@chamado.observacoes_usuario) %>
+</p>
+
+<p>
+  <strong>Data da Abertura:</strong>
+  <%= data_br_completa(@chamado.data_status_aberto) %>
+</p>
+
+<% if !@chamado.data_status_em_atendimento.blank? %>
+  
+  <p>
+    <strong>Data que entrou em Atendimento:</strong>
+    <%= data_br_completa(@chamado.data_status_em_atendimento) %>
+  </p>
+
+  <p>
+    <strong>Tecnico Responsavel:</strong>
+    <%= @chamado.tecnico.name %>
+  </p>
+
+<% end %>
+
+<% if !@chamado.data_status_concluido.blank? %>
+  
+  <p>
+    <strong>Data da Conclusão:</strong>
+    <%= data_br_completa(@chamado.data_status_concluido) %>
+  </p>
+
+  <p>
+    <strong>Parecer Final:</strong>
+    <%= detalhes(@chamado.parecer_final_tecnico) %>
+  </p>
+
+<% end %>
+
+<% if !@chamado.data_status_fechado.blank? %>
+  
+  <p>
+    <strong>Avaliação:</strong>
+    <%= @chamado.avaliacao_usuario %>
+  </p>
+
+  <p>
+    <strong>Satisfação:</strong>
+    <%= @chamado.nivel_satisfacao_usuario %>
+  </p>
+
+  <p>
+    <strong>Data do Fechamento:</strong>
+    <%= data_br_completa(@chamado.data_status_fechado) %>
+  </p>
+
+<% end %>
+
+<% if !@chamado.data_status_cancelado.blank? %>
+  
+  <p>
+    <strong>Motivo do Cancelamento:</strong>
+    <%= @chamado.motivo_cancelamento %>
+  </p>
+
+  <p>
+    <strong>Data do Cancelamento:</strong>
+    <%= data_br_completa(@chamado.data_status_cancelado) %>
+  </p>
+
+<% end %>
+
+<%= link_to link_icone('voltar'), chamados_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if @chamado.status == "ABERTO" and @chamado.user == current_user %>
+  <%= link_to link_icone('editar'), edit_chamado_path(@chamado), :class=>"btn btn-primary", :title=>"Editar" %> 
+<% end %>
+<% if @chamado.status == "CONCLUIDO" %>
+  <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
+<% end %>
+
+<% if ((@chamado.status == "ABERTO" or  @chamado.status == "EM ATENDIMENTO") and @chamado.user == current_user) %>
+  <%= link_to link_icone('cancelar'), chamado_cancelar_chamado_path(@chamado), :class=>"btn btn-danger", :title=>"Cancelar" %> 
+<% end %>
+
+<% if @chamado.status == "ABERTO" and current_user.e_tecnico %>
+  <%= link_to link_icone('pegar'),
+          chamado_pegar_chamado_path(@chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Pegar" %>
+<% end %>
+
+<% if @chamado.status == "EM ATENDIMENTO" and @current_user.e_tecnico and @chamado.tecnico_chamado == current_user %>
+  <%= link_to link_icone('concluir'),
+          chamado_concluir_chamado_path(@chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
+<% end %>
+
+<% if (@chamado.status == "CONCLUIDO" and @chamado.user == current_user) %>
+  <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
+<% end %>
+
+<%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success', :title=>"Novo Chamado" %>

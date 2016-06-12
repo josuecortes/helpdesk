@@ -1,0 +1,72 @@
+<% content_for :titulo do %>
+  Chamados
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= search_form_for @q, :url=>chamados_url,  :class=>'navbar-form navbar-right', :role=>'search' do |f| %>
+      
+      <!-- NOVO -->
+      <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success', :title=>"Novo Chamado" %>
+      <!-- /NOVO -->
+
+      <%= f.search_field :status_cont, :class=>'form-control', :placeholder=>'Status' %>
+      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+    <% end %>
+  </ul>
+  <h4>
+    <strong>
+      Lista de Chamados
+    </strong>
+  </h4>
+<% end %>
+
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+
+    <li role="presentation" class=""><a href="/chamados">ABERTOS(<%= @abertos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/em_atendimento">EM ATENDIMENTO(<%= @atendimentos.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/concluidos">CONCLUIDOS(<%= @concluidos.count %>)</a></li>
+
+    <li role="presentation" class="active"><a href="#CANCELADOS" aria-controls="CANCELADOS" role="tab" data-toggle="tab">CANCELADOS(<%= @cancelados.count %>)</a></li>
+
+    <li role="presentation" class=""><a href="/chamados/fechados">FECHADOS(<%= @fechados.count %>)</a></li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="ABERTOS">
+      
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Abertura</th>
+            <th>Status</th>
+            <th>Usuário</th>
+            <th>Local</th>
+            <th>Tecnico</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cancelados.each do |chamado| %>
+            <%= render partial: "chamados/tabela", object: chamado, as: 'chamado' %>
+          <% end %>
+        </tbody>
+      </table>
+
+      <center>
+        <%= will_paginate @cancelados, renderer: BootstrapPagination::Rails  %>
+      </center>  
+
+    </div>
+  </div>  
+</div>    

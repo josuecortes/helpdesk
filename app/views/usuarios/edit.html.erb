@@ -1,0 +1,25 @@
+<% content_for :titulo do %>
+  Usuários
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Editar Usuário
+<% end %>
+
+
+<%= simple_form_for @usuario, :url=>usuario_path(@usuario) do |f| %>
+
+  <%= f.input :name, :label=>"Nome" %>
+
+  <%= f.input :email %>
+
+  <% if can? :manage, Role %>
+    <%= f.input :role_ids, :label=>"Permissões", :collection=>Role.accessible_by(current_ability).order('nome ASC').collect {|d| [d.nome, d.id]}, as: :check_boxes %>
+  <% end %>
+  
+  <div class="form-actions">
+    <%= f.button :submit, 'Salvar', :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', usuarios_path, :class=>'btn btn-default' %>
+  </div>
+
+<% end %>

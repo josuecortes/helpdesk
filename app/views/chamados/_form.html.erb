@@ -1,0 +1,25 @@
+<%= simple_form_for(@chamado) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <%= f.association :problema, collection: Problema.order([:descricao]), :label=>"Selecione o Problema ou Requisição", label_method: :descricao, value_method: :id, include_blank: true %>
+
+    <%= f.input :observacoes_usuario, :label=>"Observações" %>
+
+    <% if @chamado.user_id.blank? %>
+      <%= f.input :user_id, as: :hidden, :input_html=>{:value=>current_user.id} %>
+    <% end %>
+
+    <% if @chamado.status.blank? %>
+      <%= f.input :status, as: :hidden, :input_html=>{:value=>"ABERTO"} %>
+      <%= f.input :data_status_aberto, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

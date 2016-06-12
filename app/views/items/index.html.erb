@@ -1,0 +1,54 @@
+<% content_for :titulo do %>
+  Itens
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= search_form_for @q, :url=>items_url,  :class=>'navbar-form navbar-right', :role=>'search' do |f| %>
+      
+      <!-- NOVO -->
+      <%= link_to link_icone('novo'), new_item_path, :class=> 'btn btn-success', :title=>"Novo Item" %>
+      <!-- /NOVO -->
+
+      <%= f.search_field :nome_cont, :class=>'form-control', :placeholder=>'Nome' %>
+      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+    <% end %>
+  </ul>
+  <h4>
+    <strong>
+      Lista de Itens
+    </strong>
+  </h4>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.nome %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    item_path(item), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_item_path(item), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, item %>
+            <%= link_to link_icone('apagar'), item_path(item), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<center>
+  <%= will_paginate @items, renderer: BootstrapPagination::Rails %>
+</center>

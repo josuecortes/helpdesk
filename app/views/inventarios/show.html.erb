@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Departamento:</strong>
+  <%= @inventario.departamento_id %>
+</p>
+
+<p>
+  <strong>Quantidade:</strong>
+  <%= @inventario.quantidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @inventario.estado %>
+</p>
+
+<p>
+  <strong>Observacoes:</strong>
+  <%= @inventario.observacoes %>
+</p>
+
+<%= link_to 'Edit', edit_inventario_path(@inventario) %> |
+<%= link_to 'Back', inventarios_path %>

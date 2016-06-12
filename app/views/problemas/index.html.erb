@@ -1,0 +1,56 @@
+<% content_for :titulo do %>
+  Problemas
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= search_form_for @q, :url=>problemas_url,  :class=>'navbar-form navbar-right', :role=>'search' do |f| %>
+      
+      <!-- NOVO -->
+      <%= link_to link_icone('novo'), new_problema_path, :class=> 'btn btn-success', :title=>"Novo Problema" %>
+      <!-- /NOVO -->
+
+      <%= f.search_field :descricao_cont, :class=>'form-control', :placeholder=>'Descrição' %>
+      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+    <% end %>
+  </ul>
+  <h4>
+    <strong>
+      Lista de Problemas
+    </strong>
+  </h4>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Tipo</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problemas.each do |problema| %>
+      <tr>
+        <td><%= problema.descricao %></td>
+        <td><%= problema.tipo %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    problema_path(problema), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_problema_path(problema), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, problema %>
+            <%= link_to link_icone('apagar'), problema_path(problema), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<center>
+  <%= will_paginate @problemas, renderer: BootstrapPagination::Rails %>
+</center>

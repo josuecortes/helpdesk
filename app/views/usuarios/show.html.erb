@@ -1,0 +1,38 @@
+<% content_for :titulo do %>
+  Usuários
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Usuário
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @usuario.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @usuario.email %>
+</p>
+
+<p>
+  <strong>Permissões:</strong>
+  <% @usuario.roles.each do |r| %>
+  	<%= icone_permissao(r.nome) %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Ativo:</strong>
+  <%= simnao(@usuario.ativo) %>
+</p>
+
+<p>
+  <strong>Mudar Senha:</strong>
+  <%= simnao(@usuario.mudar_senha) %>
+</p>
+
+<%= link_to link_icone('voltar'), usuarios_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_usuario_path(@usuario), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('novo'), new_usuario_path, :class=> 'btn btn-success', :title=>"Novo Usuário" %>

@@ -1,0 +1,31 @@
+<% content_for :titulo do %>
+  Departamentos
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Departamento
+<% end %>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @departamento.nome %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @departamento.sigla %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= detalhes(@departamento.email) %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= detalhes(@departamento.telefone) %>
+</p>
+
+<%= link_to link_icone('voltar'), departamentos_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_departamento_path(@departamento), :class=>"btn btn-primary", :title=>"Editar" %>
+<%= link_to link_icone('novo'), new_departamento_path, :class=> 'btn btn-success', :title=>"Novo Departamento" %>
