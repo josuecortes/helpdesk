@@ -9,7 +9,7 @@
 		  <div class="panel-body">
 		    <% if @meus_chamados.count < 1 %>
 					<div class="alert bg-primary" role="alert">
-						<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você não possui chamados <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+						<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você não possui chamados </span></a>
 					</div>
 				<% else %>
 					<% if @meus_chamados.last.status == "ABERTO" %>
@@ -22,30 +22,33 @@
 						<div class="alert alert-warning" role="alert"><svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você possui 1 chamado concluido </div>
 					<% end %>
 				<% end %> 
+				<% if @meus_chamados.count > 0 %>
+					<% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
 
-				<% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
-
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Problema</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><%= @meus_chamados.last.problema.descricao %></td>
-									<td>
-										<%= link_to link_icone('detalhes'),
-		            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
-		            	
-		            	</td>
-								</tr>
-							</tbody>
-						</table>	
-					
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Problema</th>
+										<th>Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><%= @meus_chamados.last.problema.descricao %></td>
+										<td>
+											<%= link_to link_icone('detalhes'),
+			            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
+			            	
+			            	</td>
+									</tr>
+								</tbody>
+							</table>	
+						
+					<% else %>
+						<center>Você não possui chamados pendente <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success btn-md', :title=>"Novo Chamado" %></center>
+					<% end %>
 				<% else %>
-					<center>Você não possui chamados pendente <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success btn-md', :title=>"Novo Chamado" %></center>
+						<center>Você não possui chamados pendente <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success btn-md', :title=>"Novo Chamado" %></center>
 				<% end %>
 		  </div>
 		</div>
@@ -54,33 +57,32 @@
 	<div class="col-md-6">	
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><svg class="glyph stroked sound on"><use xlink:href="#stroked-sound-on"/></svg>Incidentes(<%= @meus_chamados.count %>)</h3>
+		    <h3 class="panel-title"><svg class="glyph stroked sound on"><use xlink:href="#stroked-sound-on"/></svg>Incidentes(<%= @incidentes.count %>)</h3>
 		  </div>
 		  <div class="panel-body">
-		    <% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
-
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Problema</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><%= @meus_chamados.last.problema.descricao %></td>
-									<td>
-										<%= link_to link_icone('detalhes'),
-		            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
-		            	
-		            	</td>
-								</tr>
-							</tbody>
-						</table>	
-					
-				<% end %>
-					
-		  </div>
+   			<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Incidente</th>
+							<th>Status</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @incidentes.each do |incidente| %>
+							<tr>
+								<td><%= incidente.descricao %></td>
+								<td><%= icone_incidente(incidente.status) %></td>
+								<td>
+									<%= link_to link_icone('detalhes'),
+	            incidente_path(incidente), :class => 'btn btn-default', :title=>"Detalhes" %>
+	            	
+	            	</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>	
+			</div>
 		</div>
 	</div>
 

@@ -1,5 +1,5 @@
 class ChamadosController < ApplicationController
-  before_action :set_chamado, only: [:show, :edit, :update, :destroy, :fechar_chamado, :cancelar_chamado]
+  before_action :set_chamado, only: [:show, :edit, :update, :destroy, :fechar_chamado, :cancelar_chamado, :concluir_chamado]
   before_action :pegar_todos, only: [:index, :em_atendimento, :concluidos, :cancelados, :fechados]
   load_and_authorize_resource :class=>"Chamado", except: :create
   
@@ -84,7 +84,13 @@ class ChamadosController < ApplicationController
           @chamado.status = Chamado.where("id = ?", @chamado.id).first.status
           format.html { render :fechar_chamado }
           format.json { render json: @chamado.errors, status: :unprocessable_entity }
-        end        
+        end    
+
+        if @chamado.status == "CONCLUIDO"
+          @chamado.status = Chamado.where("id = ?", @chamado.id).first.status
+          format.html { render :concluir_chamado }
+          format.json { render json: @chamado.errors, status: :unprocessable_entity }
+        end          
       end
     end
   end
@@ -104,6 +110,10 @@ class ChamadosController < ApplicationController
   end
 
   def cancelar_chamado
+
+  end
+
+  def concluir_chamado
 
   end
 
@@ -151,11 +161,11 @@ class ChamadosController < ApplicationController
       #@chamados = Chamado.all
       @q = Chamado.ransack(params[:q])
       @chamados = @q.result.accessible_by(current_ability).order('created_at DESC').paginate(:page => params[:page], :per_page => @@per_page)
-      @abertos = @q.result.accessible_by(current_ability).order('created_at DESC').where("status = ?", "ABERTO").paginate(:page => params[:page], :per_page => @@per_page)  
-      @atendimentos = @q.result.accessible_by(current_ability).order('created_at DESC').where("status = ?", "EM ATENDIMENTO").paginate(:page => params[:page], :per_page => @@per_page)  
-      @concluidos = @q.result.accessible_by(current_ability).order('created_at DESC').where("status = ?", "CONCLUIDO").paginate(:page => params[:page], :per_page => @@per_page)  
-      @cancelados = @q.result.accessible_by(current_ability).order('created_at DESC').where("status = ?", "CANCELADO").paginate(:page => params[:page], :per_page => @@per_page)  
-      @fechados = @q.result.accessible_by(current_ability).order('created_at DESC').where("status = ?", "FECHADO").paginate(:page => params[:page], :per_page => @@per_page)  
+      @abertos = @q.result.accessible_by(current_ability).order('data_status_aberto DESC').where("status = ?", "ABERTO").paginate(:page => params[:page], :per_page => @@per_page)  
+      @atendimentos = @q.result.accessible_by(current_ability).order('data_status_em_atendimento ASC').where("status = ?", "EM ATENDIMENTO").paginate(:page => params[:page], :per_page => @@per_page)  
+      @concluidos = @q.result.accessible_by(current_ability).order('data_status_concluido DESC').where("status = ?", "CONCLUIDO").paginate(:page => params[:page], :per_page => @@per_page)  
+      @cancelados = @q.result.accessible_by(current_ability).order('data_status_cancelado DESC').where("status = ?", "CANCELADO").paginate(:page => params[:page], :per_page => @@per_page)  
+      @fechados = @q.result.accessible_by(current_ability).order('data_status_fechado DESC').where("status = ?", "FECHADO").paginate(:page => params[:page], :per_page => @@per_page)  
     end
 
 end

@@ -6,7 +6,7 @@
   Fechar Chamado
 <% end %>
 
-<% if @chamado.status == "CONCLUIDO" %>
+<% if @chamado.status == "CONCLUIDO" and @chamado.user == current_user %>
 
 	<%= render 'form_fechar_chamado' %>
 

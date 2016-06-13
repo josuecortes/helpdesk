@@ -1,0 +1,58 @@
+<hr/>
+<div class="row">
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title"><svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>Chamados em aberto(<%= @abertos.count %>)</h3>
+	  </div>
+	  <div class="panel-body">
+	    <% if @abertos.count < 1 %>
+				<div class="alert alert-info" role="alert">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> No momento não existem chamados em abertos </span></a>
+				</div>
+			<% else %>
+
+				<div class="alert alert-danger" role="alert">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> <%= @abertos.count %> Chamados em aberto </span></a>
+				</div>
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Data Abertura</th>
+							<th>Problema</th>
+							<th>Usuario</th>
+							<th>Departamento</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @abertos.each do |chamado| %>
+							<tr>
+								<td><%= data_br_completa(chamado.data_status_aberto) %></td>
+								<td><%= chamado.problema.descricao %></td>
+								<td><%= detalhes2(chamado.user, :name) %></td>
+								<td><%= detalhes2(chamado.user.departamento, :nome) %></td>
+								<td>
+									<%= link_to link_icone('detalhes'),
+              chamado_path(chamado), :class => 'btn btn-default', :title=>"Detalhes" %>
+              		<% if chamado.status == "ABERTO" and current_user.e_tecnico %>
+      							<%= link_to link_icone('pegar'),
+              chamado_pegar_chamado_path(chamado.id, :usuario_id=>current_user.id), :class => 'btn btn-primary', :title=>"Pegar" %>
+              		<% end %>
+	            	
+	            	</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>	
+
+
+			<% end %> 
+
+			
+	  </div>
+	</div>
+
+
+</div>		

@@ -9,3 +9,10 @@
 <%= render "home/geral" %>
 
 <%= render "home/chamados" %>
+
+<% if current_user.nao_admin_nao_tecnico %>
+
+	<%= render "home/abertos" %>
+	<%= render "home/atendendo" %>
+
+<% end %>

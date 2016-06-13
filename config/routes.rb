@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :incidentes
+
   resources :problemas
 
   resources :chamados do

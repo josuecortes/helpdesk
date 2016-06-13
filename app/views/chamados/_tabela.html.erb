@@ -19,7 +19,7 @@
               chamado_pegar_chamado_path(chamado.id, :usuario_id=>current_user.id), :class => 'btn btn-primary', :title=>"Pegar" %>
     <% end %>
 
-    <% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico_chamado == current_user %>
+    <% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico == current_user %>
       <%= link_to link_icone('concluir'),
               chamado_concluir_chamado_path(chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
     <% end %>

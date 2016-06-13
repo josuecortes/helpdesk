@@ -1,0 +1,45 @@
+<% content_for :titulo do %>
+  Incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Incidente
+<% end %>
+
+<p>
+  <strong>Status:</strong>
+  <%= icone_incidente(@incidente.status) %>
+</p>
+
+<p>
+  <strong>Descrição do Incidente:</strong>
+  <%= @incidente.descricao %>
+</p>
+
+<p>
+  <strong>Data que iniciou:</strong>
+  <%= data_br_completa(@incidente.data_inicio) %>
+</p>
+
+<p>
+  <strong>Previsao para normalizar:</strong>
+  <%= detalhes(data_br_completa(@incidente.previsao_fim)) %>
+</p>
+
+<% if @incidente.status == "FINALIZADO" %>
+  <p>
+    <strong>Data que normalizou:</strong>
+    <%= data_br_completa(@incidente.data_fim) %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Observações:</strong>
+  <%= detalhes(@incidente.observacoes) %>
+</p>
+
+<%= link_to link_icone('voltar'), incidentes_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<% if current_user.nao_admin_nao_tecnico %>
+  <%= link_to link_icone('editar'), edit_incidente_path(@incidente), :class=>"btn btn-primary", :title=>"Editar" %> 
+  <%= link_to link_icone('nova'), new_incidente_path, :class=> 'btn btn-success', :title=>"Novo incidente" %>
+<% end %>

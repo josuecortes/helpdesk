@@ -18,6 +18,8 @@ class Ability
       can :manage, Inventario
       can :manage, Departamento
       can :manage, Item
+      can :manage, Incidente
+      
 
       can :manage, Chamado#, Chamado.where(:user_id != user.id)
       #cannot :fechar_chamado, Chamado, Chamado.where(:user_id != user.id)
@@ -41,6 +43,8 @@ class Ability
       #cannot :delete, Chamado
 
       can :update, User, User.where(:id=>user.id)
+
+      can :read, Incidente
 
       #cannot
     	#can :edit, Chamado.where(:user_id=>user.id, :status=>"ABERTO")

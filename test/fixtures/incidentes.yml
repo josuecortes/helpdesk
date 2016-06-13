@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descricao: MyText
+  data_inicio: 2016-06-13 10:25:09
+  data_fim: 2016-06-13 10:25:09
+  previsao_fim: 2016-06-13 10:25:09
+  status: MyText
+  observacoes: MyText
+  tipo_incidente_id: 1
+
+two:
+  descricao: MyText
+  data_inicio: 2016-06-13 10:25:09
+  data_fim: 2016-06-13 10:25:09
+  previsao_fim: 2016-06-13 10:25:09
+  status: MyText
+  observacoes: MyText
+  tipo_incidente_id: 1

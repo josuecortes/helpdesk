@@ -79,7 +79,7 @@ class ProblemasController < ApplicationController
 
     def colecoes
 
-      @lista_tipo_problemas = ['REDE', 'INTERNET', 'HARDWARE']
+      @lista_tipo_problemas = ['REDE', 'HARDWARE', 'S.O.', 'SISTEMAS WEB']
 
     end
 end

@@ -1,0 +1,56 @@
+<% content_for :titulo do %>
+  incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  <ul class="list-inline pull-right">
+    <%= search_form_for @q, :url=>incidentes_url,  :class=>'navbar-form navbar-right', :role=>'search' do |f| %>
+      
+      <!-- NOVO -->
+      <%= link_to link_icone('novo'), new_incidente_path, :class=> 'btn btn-success', :title=>"Novo Incidente" %>
+      <!-- /NOVO -->
+
+      <%= f.search_field :descricao_cont, :class=>'form-control', :placeholder=>'Descrição' %>
+      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
+    <% end %>
+  </ul>
+  <h4>
+    <strong>
+      Lista de Incidentes
+    </strong>
+  </h4>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Descricao</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @incidentes.each do |incidente| %>
+      <tr>
+        <td><%= incidente.descricao %></td>
+        <td><%= icone_incidente(incidente.status) %></td>
+        <td>
+          <%= link_to link_icone('detalhes'),
+                    incidente_path(incidente), :class => 'btn btn-default', :title=>"Detalhes" %>
+          <%= link_to link_icone('editar'),
+                    edit_incidente_path(incidente), :class => 'btn btn-primary', :title=>"Editar" %>
+          <% if can? :delete, incidente %>
+            <%= link_to link_icone('apagar'), incidente_path(incidente), :class=>"btn btn-danger", method: :delete, data: { confirm: 'Você está certo disso?' }, :title=>"Apagar" %> 
+          <% end %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<center>
+  <%= will_paginate @incidentes, renderer: BootstrapPagination::Rails %>
+</center>

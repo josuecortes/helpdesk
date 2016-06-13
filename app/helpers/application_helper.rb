@@ -263,4 +263,40 @@ module ApplicationHelper
 
 	end
 
+	def icone_incidente(objeto)
+		html = ""
+		case objeto
+			when 'ACONTECENDO'
+				html="<span class='label label-danger'>ACONTECENDO</span>"
+
+			when 'FINALIZADO'
+				html="<span class='label label-default'>FINALIZADO</span>"
+
+		end
+
+		return raw(html)
+
+	end
+
+	def icone_satisfacao(objeto)
+		html = ""
+		case objeto
+			when 4
+				html="<span class='label label-success'>OTIMO</span>"
+
+			when 3
+				html="<span class='label label-info'>BOM</span>"
+
+			when 2
+				html="<span class='label label-default'>NORMAL</span>"
+
+			when 1
+				html="<span class='label label-danger'>RUIM</span>"
+
+		end
+
+		return raw(html)
+
+	end
+
 end

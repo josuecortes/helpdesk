@@ -6,9 +6,11 @@
     <%= f.input :status, as: :hidden, :input_html=>{:value=>"FECHADO"} %>
     <%= f.input :data_status_fechado, as: :hidden, :input_html=>{:value=>DateTime.now} %>
     
-    <%= f.input :avaliacao_usuario, :label=>"Sua Avaliação" %>
+    <%= f.input :avaliacao_usuario, :label=>"Avaliação do Chamado" %>
 
-    <%= f.input :nivel_satisfacao_usuario, :label=>"Nivel de Satisfação" %>
+    <% @lista_satisfacao = [['RUIM',1], ['NORMAL',2], ['BOM',3], ['OTIMO',4]] %>
+
+    <%= f.input :nivel_satisfacao_usuario, :label=>"Satisfação", collection: @lista_satisfacao, as: :select, :include_blank => true %>
 
   </div>
 

@@ -1,0 +1,59 @@
+<hr/>
+<div class="row">
+
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title"><svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>Chamados em atendimento(<%= @atendendo.count %>)</h3>
+	  </div>
+	  <div class="panel-body">
+	    <% if @atendendo.count < 1 %>
+				<div class="alert alert-info" role="alert">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> No momento você não esta atendendo nenhum chamado </span></a>
+				</div>
+			<% else %>
+
+				<div class="alert alert-danger" role="alert">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>  Você esta atendendo <%= @atendendo.count %> chamados </span></a>
+				</div>
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Data Abertura</th>
+							<th>Problema</th>
+							<th>Usuario</th>
+							<th>Departamento</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @atendendo.each do |chamado| %>
+							<tr>
+								<td><%= data_br_completa(chamado.data_status_aberto) %></td>
+								<td><%= chamado.problema.descricao %></td>
+								<td><%= detalhes2(chamado.user, :name) %></td>
+								<td><%= detalhes2(chamado.user.departamento, :nome) %></td>
+								<td>
+									<%= link_to link_icone('detalhes'),
+              chamado_path(chamado), :class => 'btn btn-default', :title=>"Detalhes" %>
+              		
+              		<% if chamado.status == "EM ATENDIMENTO" and current_user.e_tecnico and chamado.tecnico == current_user %>
+							      <%= link_to link_icone('concluir'),
+							              chamado_concluir_chamado_path(chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
+							    <% end %>
+	            	
+	            	</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>	
+
+
+			<% end %> 
+
+			
+	  </div>
+	</div>
+
+
+</div>		

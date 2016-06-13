@@ -22,6 +22,16 @@
 </p>
 
 <p>
+  <strong>Usuário:</strong>
+  <%= detalhes2(@chamado.user, :name) %>
+</p>
+
+<p>
+  <strong>Departemanto:</strong>
+  <%= detalhes2(@chamado.user.departamento, :nome) %>
+</p>
+
+<p>
   <strong>Data da Abertura:</strong>
   <%= data_br_completa(@chamado.data_status_aberto) %>
 </p>
@@ -57,13 +67,13 @@
 <% if !@chamado.data_status_fechado.blank? %>
   
   <p>
-    <strong>Avaliação:</strong>
+    <strong>Avaliação do Chamado:</strong>
     <%= @chamado.avaliacao_usuario %>
   </p>
 
   <p>
-    <strong>Satisfação:</strong>
-    <%= @chamado.nivel_satisfacao_usuario %>
+    <strong>Nivel de Satisfação:</strong>
+    <%= icone_satisfacao(@chamado.nivel_satisfacao_usuario) %>
   </p>
 
   <p>
@@ -91,9 +101,7 @@
 <% if @chamado.status == "ABERTO" and @chamado.user == current_user %>
   <%= link_to link_icone('editar'), edit_chamado_path(@chamado), :class=>"btn btn-primary", :title=>"Editar" %> 
 <% end %>
-<% if @chamado.status == "CONCLUIDO" %>
-  <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
-<% end %>
+
 
 <% if ((@chamado.status == "ABERTO" or  @chamado.status == "EM ATENDIMENTO") and @chamado.user == current_user) %>
   <%= link_to link_icone('cancelar'), chamado_cancelar_chamado_path(@chamado), :class=>"btn btn-danger", :title=>"Cancelar" %> 
@@ -104,12 +112,12 @@
           chamado_pegar_chamado_path(@chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Pegar" %>
 <% end %>
 
-<% if @chamado.status == "EM ATENDIMENTO" and @current_user.e_tecnico and @chamado.tecnico_chamado == current_user %>
+<% if @chamado.status == "EM ATENDIMENTO" and @current_user.e_tecnico and @chamado.tecnico == current_user %>
   <%= link_to link_icone('concluir'),
           chamado_concluir_chamado_path(@chamado, :usuario=>current_user), :class => 'btn btn-primary', :title=>"Concluir" %>
 <% end %>
 
-<% if (@chamado.status == "CONCLUIDO" and @chamado.user == current_user) %>
+<% if @chamado.status == "CONCLUIDO" and @chamado.user == current_user %>
   <%= link_to link_icone('fechar'), chamado_fechar_chamado_path(@chamado), :class=>"btn btn-success", :title=>"Fechar" %> 
 <% end %>
 

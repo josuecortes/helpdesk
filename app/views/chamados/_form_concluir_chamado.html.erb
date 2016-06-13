@@ -1,0 +1,17 @@
+<%= simple_form_for(@chamado) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    
+    <%= f.input :status, as: :hidden, :input_html=>{:value=>"CONCLUIDO"} %>
+    <%= f.input :data_status_concluido, as: :hidden, :input_html=>{:value=>DateTime.now} %>
+    
+    <%= f.input :parecer_final_tecnico, :label=>"Parecer do Tecnico" %>
+    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Salvar", :class=>'btn btn-primary' %>
+    <%= link_to 'Voltar', chamados_path, :class=>'btn btn-default' %>
+  </div>
+<% end %>

@@ -6,7 +6,10 @@
 
 		<li><a href="/chamados"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Chamados</a></li>
 
+		<li><a href="/incidentes"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Incidentes</a></li>
+
 		<% if current_user.nao_admin_nao_tecnico %>
+
 			<li><a href="/usuarios"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Usuários</a></li>
 
 			<li><a href="/departamentos"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Departamentos</a></li>
@@ -14,6 +17,7 @@
 			<li><a href="/items"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Itens</a></li>
 
 			<li><a href="/problemas"><svg class="glyph offset chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Problemas</a></li>
+			
 		<% end %>	
 		
 	</ul>
