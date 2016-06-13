@@ -35,6 +35,12 @@ class ChamadosController < ApplicationController
     @chamado = Chamado.new
   end
 
+  def autocomplete_problema_descricao
+    term = params[:term]
+    problemas = Problema.where('descricao ilike ?',"%#{term}%").order(:descricao).all
+    render :json => problemas.map { |problema| {:id => problema.id,:label => problema.descricao, :value => problema.descricao} }
+  end
+
   # GET /chamados/1/edit
   def edit
   end

@@ -1,0 +1,87 @@
+<hr/>
+<div class="row">
+
+	<div class="col-md-6">	
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>Meus Chamados(<%= @meus_chamados.count %>)</h3>
+		  </div>
+		  <div class="panel-body">
+		    <% if @meus_chamados.count < 1 %>
+					<div class="alert bg-primary" role="alert">
+						<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você não possui chamados <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+					</div>
+				<% else %>
+					<% if @meus_chamados.last.status == "ABERTO" %>
+						<div class="alert alert-success" role="alert"><svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você possui 1 chamado em aberto </div>
+					<% end %>
+					<% if @meus_chamados.last.status == "EM ATENDIMENTO" %>
+						<div class="alert alert-info" role="alert"><svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você possui 1 chamado em atendimento </div>
+					<% end %>
+					<% if @meus_chamados.last.status == "CONCLUIDO" %>
+						<div class="alert alert-warning" role="alert"><svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg> Você possui 1 chamado concluido </div>
+					<% end %>
+				<% end %> 
+
+				<% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Problema</th>
+									<th>Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><%= @meus_chamados.last.problema.descricao %></td>
+									<td>
+										<%= link_to link_icone('detalhes'),
+		            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
+		            	
+		            	</td>
+								</tr>
+							</tbody>
+						</table>	
+					
+				<% else %>
+					<center>Você não possui chamados pendente <%= link_to link_icone('novo'), new_chamado_path, :class=> 'btn btn-success btn-md', :title=>"Novo Chamado" %></center>
+				<% end %>
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-md-6">	
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><svg class="glyph stroked sound on"><use xlink:href="#stroked-sound-on"/></svg>Incidentes(<%= @meus_chamados.count %>)</h3>
+		  </div>
+		  <div class="panel-body">
+		    <% if (@meus_chamados.last.status == "ABERTO" or @meus_chamados.last.status == "EM ATENDIMENTO" or @meus_chamados.last.status == "CONCLUIDO") %>
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Problema</th>
+									<th>Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><%= @meus_chamados.last.problema.descricao %></td>
+									<td>
+										<%= link_to link_icone('detalhes'),
+		            chamado_path(@meus_chamados.last), :class => 'btn btn-default', :title=>"Detalhes" %>
+		            	
+		            	</td>
+								</tr>
+							</tbody>
+						</table>	
+					
+				<% end %>
+					
+		  </div>
+		</div>
+	</div>
+
+</div>		

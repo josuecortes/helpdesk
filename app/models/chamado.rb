@@ -1,5 +1,7 @@
 class Chamado < ActiveRecord::Base
 
+	attr_accessor :problema_descricao
+
 	belongs_to :problema
 	belongs_to :user
 	belongs_to :tecnico, inverse_of: :responsavel, :class_name=>"User"
@@ -17,6 +19,8 @@ class Chamado < ActiveRecord::Base
 
 	validates_presence_of :data_status_cancelado, :if => :verificar_status_cancelado
 	validates_presence_of :motivo_cancelamento, :if => :verificar_status_cancelado
+
+	validates_presence_of :problema_descricao, :if => :checar_problema_id
 
 	def verificar_status_em_atendimento
 		if self.status == "EM ATENDIMENTO"
@@ -45,6 +49,14 @@ class Chamado < ActiveRecord::Base
 	def status_atual
 		return self.status.to_s
 	end
+
+	def checar_problema_id
+    if self.problema_id.blank?
+      return true
+    else
+      return false
+    end 
+  end
 
 
 	before_save :maiusculas_sem_acentos

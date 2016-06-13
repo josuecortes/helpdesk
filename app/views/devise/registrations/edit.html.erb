@@ -18,18 +18,23 @@
       <p>Atualmente aguardando confirmação para: <%= resource.unconfirmed_email %></p>
     <% end %>
 
-    <%= f.input :password, :label=>"Senha", autocomplete: "off", hint: "deixe em branco se você não quer mudá-lo", required: false %>
-    <%= f.input :password_confirmation, :label=>"Confirmar Senha", required: false %>
-    <%= f.input :current_password, :label=>"Senha Atual", hint: "precisamos de sua senha atual para confirmar as alterações", required: true %>
-
+    <fieldset class="fieldsetcomborda">
+      <p><strong>* Deixe estes campos em branco se você não quiser alterar sua senha.</strong></p>
+      <%= f.input :password, :label=>"Nova Senha", autocomplete: "off", hint: "deixe em branco se você não quer mudá-lo", required: false %>
+      <%= f.input :password_confirmation, :label=>"Confirmar Nova Senha", required: false %>
+        
+    </fieldset>    
+    
     <%= f.input :mudar_senha, :input_html=>{:value=>false}, as: :hidden %>
+
+    <%= f.input :current_password, :label=>"Senha Atual", hint: "precisamos de sua senha atual para confirmar as alterações", required: true %>
   </div>
 
 
 
   <div class="form-actions">
     <%= f.button :submit, "Atualizar", :class=>"btn btn-primary" %>
-    <%= link_to "Back", :back, :class=>'btn btn-default' %>
+    <%= link_to "Voltar", :back, :class=>'btn btn-default' %>
   </div>
 <% end %>
 

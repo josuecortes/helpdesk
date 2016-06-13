@@ -26,6 +26,12 @@ class UsuariosController < ApplicationController
     end
   end
 
+  def autocomplete_departamento_nome
+    term = params[:term]
+    departamentos = Departamento.where('nome ilike ?',"%#{term}%").order(:nome).all
+    render :json => departamentos.map { |departamento| {:id => departamento.id,:label => departamento.nome, :value => departamento.nome} }
+  end
+
   def edit
     @usuario = User.accessible_by(current_ability).find(params[:id])
     
@@ -102,7 +108,7 @@ class UsuariosController < ApplicationController
   private   
 
   def user_params
-    params.require(:user).permit(:name, :ativo, :mudar_senha, :email, :password, 
+    params.require(:user).permit(:name, :departamento_id, :ativo, :mudar_senha, :email, :password, 
                                  :password_confirmation, :sign_in_count, :current_sign_in_at, 
                                  :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip,
                                  role_ids: [])

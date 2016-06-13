@@ -27,6 +27,7 @@
     <tr>
       <th>Nome</th>
       <th>E-mail</th>
+      <th>Departamento</th>
       <th>Ações</th>
       
     </tr>
@@ -42,6 +43,7 @@
       <% end %>
         <td><%= usuario.name %></td>
         <td><%= usuario.email %></td>
+        <td><%= detalhes2(usuario.departamento, :nome) %></td>
         <td>
           <% if usuario.ativo == true %>
             <%= link_to link_icone('detalhes'),

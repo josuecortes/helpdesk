@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get :cancelados, :on => :collection
 
     get  :fechados, :on => :collection
+
+    get :autocomplete_problema_descricao, :on => :collection
     
   end
 
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
 
     get :redefinir_senha
 
-    get :autocomplete_escola_nome, :on => :collection
+    get :autocomplete_departamento_nome, :on => :collection
 
   end
   

@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_self
+ *= require jquery-ui
  *= require bootstrap
  *= require bootstrap.min
  *= require bootstrap-table
@@ -20,4 +21,5 @@
  *= require styles
  *= require font-awesome
  *= require font-awesome.min
+ *= require fieldsetcomborda 
  */

@@ -16,6 +16,10 @@
     #f.association :escola, collection: Escola.order([:nome]), :label=>"Escola", label_method: :nome, value_method: :id, include_blank: true 
   %>
 
+  <%= f.input :departamento_nome, :label=>'Selecione o Departamento', :url => autocomplete_departamento_nome_usuarios_path, :as => :autocomplete, :id_element => "#departamento_id" ,:input_html=>{:value=>(@usuario.departamento.nome if @usuario.departamento)}%>
+
+  <%= f.input :departamento_id, :as => :hidden, :input_html => { :id => "departamento_id"} %>
+
   <% if can? :manage, Role %>
     <%= f.input :role_ids, :label=>"Permissões", :collection=>Role.accessible_by(current_ability).order('nome ASC').collect {|d| [d.nome, d.id]}, as: :check_boxes %>
   <% end %>

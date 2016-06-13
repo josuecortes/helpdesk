@@ -2,7 +2,7 @@
   <td><%= data_br_completa(chamado.created_at) %></td>
   <td><%= icone_status(chamado.status) %></td>
   <td><%= chamado.user.name %></td>
-  <td>Localll</td>
+  <td><%= detalhes2(chamado.user.departamento, :nome) %></td>
   <td><%= detalhes2(chamado.tecnico, :name) %></td>
   <td>
     

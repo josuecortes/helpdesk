@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
+//= require jquery-ui/autocomplete
+//= require autocomplete-rails
 //= require jquery_ujs
 //= require bootstrap-datepicker
 //= require bootstrap-table
@@ -22,7 +25,7 @@
 //= require html5shiv.min
 //= require lumino.glyphs
 //= require respond.min
-//= require jquery-1.11.1.min
+
 
 $(document).ready(function () {
       $('a[href="' + this.location.pathname + '"]').parent().addClass('active');

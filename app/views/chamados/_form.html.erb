@@ -3,7 +3,9 @@
 
   <div class="form-inputs">
     
-    <%= f.association :problema, collection: Problema.order([:descricao]), :label=>"Selecione o Problema ou Requisição", label_method: :descricao, value_method: :id, include_blank: true %>
+    <%= f.input :problema_descricao, :label=>'Selecione o Problema', :url => autocomplete_problema_descricao_chamados_path, :as => :autocomplete, :id_element => "#problema_id" ,:input_html=>{:value=>(@chamado.problema.descricao if @chamado.problema)}%>
+
+    <%= f.input :problema_id, :as => :hidden, :input_html => { :id => "problema_id"} %>
 
     <%= f.input :observacoes_usuario, :label=>"Observações" %>
 
