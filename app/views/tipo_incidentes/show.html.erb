@@ -1,0 +1,16 @@
+<% content_for :titulo do %>
+  Tipo Incidentes
+<% end %>
+
+<% content_for :sub_titulo do %>
+  Detalhes do Tipo Incidente
+<% end %>
+
+<p>
+  <strong>Descricao:</strong>
+  <%= @tipo_incidente.descricao %>
+</p>
+
+<%= link_to link_icone('voltar'), tipo_incidentes_path, :class=>'btn btn-default', :title=>"Voltar" %> 
+<%= link_to link_icone('editar'), edit_tipo_incidente_path(@tipo_incidente), :class=>"btn btn-primary", :title=>"Editar" %> 
+<%= link_to link_icone('nova'), new_tipo_incidente_path, :class=> 'btn btn-success', :title=>"Novo incidente" %>

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :incidentes
+  resources :tipo_incidentes
+
+  resources :incidentes do
+
+    get :autocomplete_tipo_incidente_descricao, :on => :collection
+
+  end
 
   resources :problemas
 

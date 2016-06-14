@@ -71,7 +71,7 @@
 					<tbody>
 						<% @incidentes.each do |incidente| %>
 							<tr>
-								<td><%= incidente.descricao %></td>
+								<td><%= detalhes2(incidente.tipo_incidente, :descricao) %></td>
 								<td><%= icone_incidente(incidente.status) %></td>
 								<td>
 									<%= link_to link_icone('detalhes'),

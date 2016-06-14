@@ -74,6 +74,10 @@ module ApplicationHelper
 
 	    when 'fechar'
 	      html="<span class='fa fa-level-down'></span> Fechar"
+
+	    when 'concluir'
+	      html="<span class='fa fa-arrow-right'></span> Concluir"
+
 	    
 	  end
 	  

@@ -19,6 +19,12 @@ class IncidentesController < ApplicationController
     @incidente = Incidente.new
   end
 
+  def autocomplete_tipo_incidente_descricao
+    term = params[:term]
+    tipo_incidentes = TipoIncidente.where('descricao ilike ?',"%#{term}%").order(:descricao).all
+    render :json => tipo_incidentes.map { |tipo_incidente| {:id => tipo_incidente.id,:label => tipo_incidente.descricao, :value => tipo_incidente.descricao} }
+  end
+
   # GET /incidentes/1/edit
   def edit
   end
@@ -58,7 +64,7 @@ class IncidentesController < ApplicationController
   def destroy
     @incidente.destroy
     respond_to do |format|
-      format.html { redirect_to incidentes_url, @@msgs }
+      format.html { redirect_to incidentes_url, notice: @@msgs }
       format.json { head :no_content }
     end
   end

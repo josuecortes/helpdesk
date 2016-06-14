@@ -2,10 +2,18 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+
+    <%= f.input :tipo_incidente_descricao, :label=>'Selecione o Tipo de Incidente', :url => autocomplete_tipo_incidente_descricao_incidentes_path, :as => :autocomplete, :id_element => "#tipo_incidente_id" ,:input_html=>{:value=>(@incidente.tipo_incidente.descricao if @incidente.tipo_incidente)}%>
+
+    <%= f.input :tipo_incidente_id, :as => :hidden, :input_html => { :id => "tipo_incidente_id"} %>
     <%= f.input :descricao %>
-    <%= f.input :data_inicio, :label=>"Quando Iniciou" %>
-    <%= f.input :data_fim, :label=>"Quando Terminou" %>
-    <%= f.input :previsao_fim, :label=>"Previsão de Termino" %>
+
+
+
+    <%= f.input :data_inicio, :label=>"Quando Iniciou (dd/mm/aaaa hh:mm)", as: :date, html5: true, :input_html=>{:value=>(data_br_completa(@incidente.data_inicio) if @incidente.data_inicio)}%>
+    <%= f.input :previsao_fim, :label=>"Previsão de Termino (dd/mm/aaaa hh:mm)", as: :date, html5: true, :input_html=>{:value=>(data_br_completa(@incidente.previsao_fim) if @incidente.previsao_fim)}%>
+    <%= f.input :data_fim, :label=>"Quando Terminou (dd/mm/aaaa hh:mm)", as: :date, html5: true, :input_html=>{:value=>(data_br_completa(@incidente.data_fim) if @incidente.data_fim)}%>
+    
     <% @lista_status = ['ACONTECENDO', 'FINALIZADO'] %>
     <%= f.input :status, collection: @lista_status, as: :select, :include_blank => true %>
     <%= f.input :observacoes %>

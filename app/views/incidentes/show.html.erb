@@ -12,6 +12,11 @@
 </p>
 
 <p>
+  <strong>Incidente:</strong>
+  <%= detalhes2(@incidente.tipo_incidente, :descricao) %>
+</p>
+
+<p>
   <strong>Descrição do Incidente:</strong>
   <%= @incidente.descricao %>
 </p>
@@ -23,13 +28,21 @@
 
 <p>
   <strong>Previsao para normalizar:</strong>
-  <%= detalhes(data_br_completa(@incidente.previsao_fim)) %>
+  <% if !@incidente.previsao_fim.blank? %>
+    <%= data_br_completa(@incidente.previsao_fim) %>
+  <% else %>
+    <%= detalhes(@incidente.previsao_fim) %>
+  <% end %>
 </p>
 
 <% if @incidente.status == "FINALIZADO" %>
   <p>
     <strong>Data que normalizou:</strong>
+    <% if !@incidente.data_fim.blank? %>
     <%= data_br_completa(@incidente.data_fim) %>
+  <% else %>
+    <%= detalhes(@incidente.data_fim) %>
+  <% end %>
   </p>
 <% end %>
 
